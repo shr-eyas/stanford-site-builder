@@ -25,7 +25,7 @@ export function PublicationsSection() {
 
           {years.map((year) => (
             <div key={year} className="mb-12">
-              <h2 className="text-2xl font-serif font-normal mb-6 text-muted-foreground">
+              <h2 className="text-2xl md:text-3xl font-serif font-normal mb-8 text-muted-foreground">
                 {year}
               </h2>
               
