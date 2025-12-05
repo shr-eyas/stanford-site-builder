@@ -34,6 +34,13 @@ image: https://placehold.co/200x200/e8e8e8/666?text=Emma
 role: MS Student, Year 1
 link: https://stanford.edu
 
+## Robots
+
+### Alice Johnson
+image: https://placehold.co/200x200/e8e8e8/666?text=Alice
+role: PhD Candidate, Year 4
+link: https://stanford.edu
+
 ## Alumni
 
 ### Dr. Michael Brown
