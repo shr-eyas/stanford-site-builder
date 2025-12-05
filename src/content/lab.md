@@ -1,45 +1,52 @@
-# Our Lab
+# Lab
 
-The Robotics and Embodied AI Lab (REAL) at Stanford University focuses on developing algorithms that enable intelligent systems to learn from their interactions with the physical world.
-
-## Principal Investigator
+## Faculty
 
 ### Dr. Jane Smith
-*Assistant Professor, Computer Science*
+image: https://placehold.co/200x200/e8e8e8/666?text=Faculty
+role: Assistant Professor, Computer Science
+link: https://stanford.edu
 
-Dr. Smith leads research in robot learning, manipulation, and human-robot interaction. Her work focuses on enabling robots to learn complex skills through interaction with their environment.
-
-## PhD Students
+## Members
 
 ### Alice Johnson
-*PhD Candidate, Year 4*
-
-Research interests: Imitation learning, dexterous manipulation
+image: https://placehold.co/200x200/e8e8e8/666?text=Alice
+role: PhD Candidate, Year 4
+link: https://stanford.edu
 
 ### Bob Chen
-*PhD Candidate, Year 3*
-
-Research interests: Reinforcement learning, sim-to-real transfer
+image: https://placehold.co/200x200/e8e8e8/666?text=Bob
+role: PhD Candidate, Year 3
+link: https://stanford.edu
 
 ### Carol Williams
-*PhD Candidate, Year 2*
-
-Research interests: Multi-agent systems, collaborative robotics
-
-## Masters Students
+image: https://placehold.co/200x200/e8e8e8/666?text=Carol
+role: PhD Candidate, Year 2
+link: https://stanford.edu
 
 ### David Lee
-*MS Student, Year 2*
-
-Research interests: Computer vision for robotics
+image: https://placehold.co/200x200/e8e8e8/666?text=David
+role: MS Student, Year 2
+link: https://stanford.edu
 
 ### Emma Davis
-*MS Student, Year 1*
-
-Research interests: Natural language interfaces for robots
+image: https://placehold.co/200x200/e8e8e8/666?text=Emma
+role: MS Student, Year 1
+link: https://stanford.edu
 
 ## Alumni
 
-- **Dr. Michael Brown** (PhD 2023) → Research Scientist at Google DeepMind
-- **Dr. Sarah Wilson** (PhD 2022) → Assistant Professor at MIT
-- **Dr. James Taylor** (PhD 2021) → Research Scientist at NVIDIA
+### Dr. Michael Brown
+image: https://placehold.co/200x200/e8e8e8/666?text=Michael
+role: PhD 2023 → Research Scientist at Google DeepMind
+link: https://deepmind.google
+
+### Dr. Sarah Wilson
+image: https://placehold.co/200x200/e8e8e8/666?text=Sarah
+role: PhD 2022 → Assistant Professor at MIT
+link: https://mit.edu
+
+### Dr. James Taylor
+image: https://placehold.co/200x200/e8e8e8/666?text=James
+role: PhD 2021 → Research Scientist at NVIDIA
+link: https://nvidia.com
