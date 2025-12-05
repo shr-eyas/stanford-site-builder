@@ -1,12 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Navigation } from '@/components/Navigation';
+import { HomeSection } from '@/components/HomeSection';
+import { MarkdownSection } from '@/components/MarkdownSection';
+import type { ContentKey } from '@/lib/content';
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState<string>('home');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'home':
+        return <HomeSection />;
+      case 'lab':
+      case 'research':
+      case 'publications':
+      case 'positions':
+      case 'contact':
+        return <MarkdownSection contentKey={activeTab as ContentKey} />;
+      default:
+        return <HomeSection />;
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <main>
+        {renderContent()}
+      </main>
     </div>
   );
 };
