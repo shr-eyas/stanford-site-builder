@@ -10,8 +10,8 @@ export function HomeSection() {
     <section className="min-h-[calc(100vh-65px)] flex items-center">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal leading-tight mb-8">
+          <div className="animate-fade-in">
+            <h1 className="font-serif text-4xl md:text-5xl font-normal leading-tight mb-8">
               {titleLines.map((line, index) => (
                 <span key={index} className="block">
                   {line}
@@ -38,11 +38,12 @@ export function HomeSection() {
             </div>
           </div>
           
-          <div className="hidden lg:flex justify-end animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <div className="hidden lg:flex justify-end">
             <img
               src={robotArm}
               alt="Robot arm holding a shield with tree logo"
-              className="max-w-md w-full h-auto"
+              className="max-w-md w-full h-auto animate-fade-in"
+              style={{ animationDelay: '0.15s' }}
             />
           </div>
         </div>

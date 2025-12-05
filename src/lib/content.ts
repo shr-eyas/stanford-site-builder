@@ -53,12 +53,17 @@ export interface ResearchArea {
   title: string;
   image: string;
   description: string;
+  slug: string;
 }
 
 export interface ResearchContent {
   title: string;
   intro: string;
   areas: ResearchArea[];
+}
+
+function slugify(text: string): string {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
 export function parseResearchContent(content: string): ResearchContent {
@@ -85,7 +90,8 @@ export function parseResearchContent(content: string): ResearchContent {
       if (currentArea?.title) {
         areas.push(currentArea as ResearchArea);
       }
-      currentArea = { title: line.replace('### ', ''), image: '', description: '' };
+      const areaTitle = line.replace('### ', '');
+      currentArea = { title: areaTitle, image: '', description: '', slug: slugify(areaTitle) };
     } else if (currentArea && line.startsWith('image: ')) {
       currentArea.image = line.replace('image: ', '');
     } else if (currentArea && line.trim() && !line.startsWith('image:')) {
@@ -107,32 +113,39 @@ export interface LabMember {
   link: string;
 }
 
-export interface LabContent {
-  faculty: LabMember[];
+export interface LabSection {
+  title: string;
   members: LabMember[];
-  alumni: LabMember[];
+}
+
+export interface LabContent {
+  sections: LabSection[];
 }
 
 export function parseLabContent(content: string): LabContent {
   const lines = content.split('\n');
-  const faculty: LabMember[] = [];
-  const members: LabMember[] = [];
-  const alumni: LabMember[] = [];
+  const sections: LabSection[] = [];
   
-  let currentSection: 'faculty' | 'members' | 'alumni' | null = null;
+  let currentSection: LabSection | null = null;
   let currentMember: Partial<LabMember> | null = null;
   
   for (const line of lines) {
-    if (line.startsWith('## Faculty')) {
-      currentSection = 'faculty';
-    } else if (line.startsWith('## Members')) {
-      currentSection = 'members';
-    } else if (line.startsWith('## Alumni')) {
-      currentSection = 'alumni';
-    } else if (line.startsWith('### ')) {
+    if (line.startsWith('## ') && !line.startsWith('### ')) {
+      // Save previous member if exists
       if (currentMember?.name && currentSection) {
-        const targetArray = currentSection === 'faculty' ? faculty : currentSection === 'members' ? members : alumni;
-        targetArray.push(currentMember as LabMember);
+        currentSection.members.push(currentMember as LabMember);
+      }
+      // Save previous section if exists
+      if (currentSection) {
+        sections.push(currentSection);
+      }
+      // Start new section
+      currentSection = { title: line.replace('## ', ''), members: [] };
+      currentMember = null;
+    } else if (line.startsWith('### ')) {
+      // Save previous member if exists
+      if (currentMember?.name && currentSection) {
+        currentSection.members.push(currentMember as LabMember);
       }
       currentMember = { name: line.replace('### ', ''), image: '', role: '', link: '' };
     } else if (currentMember && line.startsWith('image: ')) {
@@ -144,12 +157,15 @@ export function parseLabContent(content: string): LabContent {
     }
   }
   
+  // Save last member and section
   if (currentMember?.name && currentSection) {
-    const targetArray = currentSection === 'faculty' ? faculty : currentSection === 'members' ? members : alumni;
-    targetArray.push(currentMember as LabMember);
+    currentSection.members.push(currentMember as LabMember);
+  }
+  if (currentSection) {
+    sections.push(currentSection);
   }
   
-  return { faculty, members, alumni };
+  return { sections };
 }
 
 export interface Publication {
@@ -159,6 +175,7 @@ export interface Publication {
   venue: string;
   links: { text: string; url: string }[];
   year: string;
+  researchArea?: string;
 }
 
 export function parsePublicationsContent(content: string): { title: string; publications: Publication[] } {
@@ -185,6 +202,8 @@ export function parsePublicationsContent(content: string): { title: string; publ
       currentPub.authors = line.replace('authors: ', '');
     } else if (currentPub && line.startsWith('venue: ')) {
       currentPub.venue = line.replace('venue: ', '');
+    } else if (currentPub && line.startsWith('area: ')) {
+      currentPub.researchArea = line.replace('area: ', '');
     } else if (currentPub && line.startsWith('links: ')) {
       const linksStr = line.replace('links: ', '');
       const linkMatches = linksStr.matchAll(/\[([^\]]+)\]\(([^)]+)\)/g);
@@ -197,4 +216,19 @@ export function parsePublicationsContent(content: string): { title: string; publ
   }
   
   return { title, publications };
+}
+
+export function getPublicationsByArea(areaSlug: string): Publication[] {
+  const { publications } = parsePublicationsContent(getContent('publications'));
+  return publications.filter(pub => {
+    if (pub.researchArea) {
+      return slugify(pub.researchArea) === areaSlug;
+    }
+    return false;
+  });
+}
+
+export function getResearchAreaBySlug(slug: string): ResearchArea | undefined {
+  const { areas } = parseResearchContent(getContent('research'));
+  return areas.find(area => area.slug === slug);
 }

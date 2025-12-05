@@ -1,6 +1,10 @@
 import { getContent, parseResearchContent } from '@/lib/content';
 
-export function ResearchSection() {
+interface ResearchSectionProps {
+  onAreaClick: (slug: string) => void;
+}
+
+export function ResearchSection({ onAreaClick }: ResearchSectionProps) {
   const content = getContent('research');
   const { title, intro, areas } = parseResearchContent(content);
 
@@ -16,20 +20,24 @@ export function ResearchSection() {
             {intro}
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {areas.map((area, index) => (
-              <div key={index} className="group">
-                <div className="bg-card rounded-lg shadow-sm overflow-hidden mb-4 border border-border/50">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {areas.map((area) => (
+              <button
+                key={area.slug}
+                onClick={() => onAreaClick(area.slug)}
+                className="group text-left"
+              >
+                <div className="bg-card rounded-lg shadow-sm overflow-hidden mb-4 border border-border/50 transition-shadow group-hover:shadow-md">
                   <img
                     src={area.image}
                     alt={area.title}
                     className="w-full h-56 object-cover"
                   />
                 </div>
-                <h3 className="text-lg md:text-xl font-serif text-accent text-center leading-snug">
+                <h3 className="text-lg md:text-xl font-serif text-accent text-center leading-snug group-hover:text-accent/80 transition-colors">
                   {area.title}
                 </h3>
-              </div>
+              </button>
             ))}
           </div>
         </div>
