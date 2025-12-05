@@ -1,6 +1,6 @@
-# Robotics and
-# Embodied
-# Artificial Intelligence
+# Human
+# Interactive
+# Robotics 
 # Lab
 
 We are **REAL @ Stanford**. We are interested in developing algorithms that enable intelligent systems to learn from their interactions with the physical world to execute complex tasks and assist people.
