@@ -1,5 +1,5 @@
 import { getContent, parseHomeContent } from '@/lib/content';
-import robotArm from '@/assets/robot-arm.png';
+import robotArm from '@/src/assets/robot-arm.png';
 import ReactMarkdown from 'react-markdown';
 
 export function HomeSection() {
